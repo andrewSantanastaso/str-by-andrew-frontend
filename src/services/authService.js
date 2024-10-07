@@ -39,6 +39,7 @@ const signin = async (user) => {
             const user = JSON.parse(atob(json.token.split('.')[1]));
 
             return user
+
         }
         if (json.err) {
             throw new Error(json.err)

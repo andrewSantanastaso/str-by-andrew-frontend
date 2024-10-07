@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import * as authService from "../services/authService";
+import * as authService from "../../services/authService";
 
 const SignInForm = (props) => {
   const navigate = useNavigate(); // added this for navigation purposes
@@ -20,14 +20,15 @@ const SignInForm = (props) => {
       const user = await authService.signin(formData);
 
       props.setUser(user);
-      const checkForAdmin = () => {
-        if (authService.getUser()._id.isAdmin === true) {
-          return true;
-        } else {
-          return false;
-        }
-      };
-      checkForAdmin() ? navigate("/admin") : navigate("/home");
+      // const checkForAdmin = () => {
+      //   if (authService.getUser()._id.isAdmin) {
+      //     return true;
+      //   } else {
+      //     return false;
+      //   }
+      // };
+      // console.log(checkForAdmin());
+      navigate("/admin");
     } catch (err) {
       console.error({ error: err.message });
     }

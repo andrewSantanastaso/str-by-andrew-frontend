@@ -7,8 +7,8 @@ import { Link } from "react-router-dom";
 
 const NavHead = (props) => {
   return (
-    <Navbar expand="lg" className="bg-body-secondary">
-      <Container>
+    <Navbar expand="md" className="bg-body-secondary">
+      <Container fluid>
         <Navbar.Brand href="#home">STR by Andrew</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
@@ -22,17 +22,16 @@ const NavHead = (props) => {
               </NavDropdown.Item>
               <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                Separated link
+              <NavDropdown.Item>
+                <NavItem>
+                  <Link to="" onClick={props.handleSignOut}>
+                    Sign Out
+                  </Link>
+                </NavItem>
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
-        <NavItem>
-          <Link to="" onClick={props.handleSignOut}>
-            Sign Out
-          </Link>
-        </NavItem>
       </Container>
     </Navbar>
   );
