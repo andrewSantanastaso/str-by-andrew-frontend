@@ -3,6 +3,7 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import { Link } from "react-router-dom";
 
 const NavHead = (props) => {
   return (
@@ -28,7 +29,9 @@ const NavHead = (props) => {
           </Nav>
         </Navbar.Collapse>
         <NavItem>
-          <a onClick={props.handleSignOut}>Sign Out</a>
+          <Link to="" onClick={props.handleSignOut}>
+            Sign Out
+          </Link>
         </NavItem>
       </Container>
     </Navbar>
