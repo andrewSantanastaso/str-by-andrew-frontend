@@ -1,9 +1,10 @@
+import { NavItem } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 
-function NavHead() {
+const NavHead = (props) => {
   return (
     <Navbar expand="lg" className="bg-body-secondary">
       <Container>
@@ -26,9 +27,12 @@ function NavHead() {
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
+        <NavItem>
+          <a onClick={props.handleSignOut}>Sign Out</a>
+        </NavItem>
       </Container>
     </Navbar>
   );
-}
+};
 
 export default NavHead;

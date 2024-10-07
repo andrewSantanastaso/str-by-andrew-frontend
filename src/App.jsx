@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import * as authService from "../src/services/authService";
 import NavHead from "./components/NavBar";
 import Landing from "./components/Landing";
@@ -13,17 +13,19 @@ import "./App.css";
 
 const App = () => {
   const [user, setUser] = useState(authService.getUser());
+  const navigate = useNavigate();
   const handleSignout = () => {
     authService.signout();
     setUser(null);
+    navigate("/");
   };
   let currentUser = async () => {
     await authService.getUser();
   };
-  currentUser = user._id;
+
   return (
     <>
-      <NavHead />
+      <NavHead handleSignout={handleSignout} />
       <Routes>
         {user ? (
           <Route path="/home" element={<Home user={user} />} />
@@ -34,7 +36,8 @@ const App = () => {
         <Route path="sign-up" element={<SignUpForm setUser={setUser} />} />
         <Route path="/home" element={<Home user={currentUser} />} />
         <Route path="/" element={<Landing />} />
-        <Route path="/admin" element={<Admin />} />
+
+        <Route path="/admin" element={<Admin user={currentUser} />} />
       </Routes>
     </>
   );

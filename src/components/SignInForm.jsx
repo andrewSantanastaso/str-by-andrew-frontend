@@ -20,8 +20,14 @@ const SignInForm = (props) => {
       const user = await authService.signin(formData);
 
       props.setUser(user);
-
-      navigate("/home");
+      const checkForAdmin = () => {
+        if (authService.getUser()._id.isAdmin === true) {
+          return true;
+        } else {
+          return false;
+        }
+      };
+      checkForAdmin() ? navigate("/admin") : navigate("/home");
     } catch (err) {
       console.error({ error: err.message });
     }
