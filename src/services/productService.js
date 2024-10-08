@@ -21,5 +21,20 @@ const loadProducts = async () => {
     }
 }
 
+const addProduct = async (formData) => {
+    try {
+        const res = await fetch(`${BACKEND_URL}/new-product`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData)
 
-export { loadProducts }
+        })
+        return res.json()
+
+    } catch (error) {
+        console.log(error)
+    }
+    loadProducts()
+}
+
+export { loadProducts, addProduct }
