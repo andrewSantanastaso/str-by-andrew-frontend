@@ -22,7 +22,8 @@ const SignInForm = (props) => {
       if (currentUser._id.isAdmin === true) {
         navigate("/admin");
       } else {
-        navigate("/home");
+        console.log(currentUser);
+        navigate(`/home/${currentUser._id._id}`);
       }
     }
   };

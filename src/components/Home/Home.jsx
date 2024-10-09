@@ -2,10 +2,15 @@ import { useState, useEffect } from "react";
 import * as productService from "../../services/productService";
 import { Row, Col } from "react-bootstrap";
 import ProductCard from "../ProductCard/ProductCard";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import * as authService from "../../services/authService";
+import * as cartService from "../../services/cartService";
 
 const Home = (props) => {
   const user = props.user._id || props.user.user;
+
+  const { userId, category } = useParams();
+  console.log(category);
   const [store, setStore] = useState([]);
   const navigate = useNavigate();
   const handleProductClick = async (event) => {
@@ -27,27 +32,30 @@ const Home = (props) => {
     };
     fetchProducts();
   }, []);
+  console.log(store.allProducts);
 
   return (
     <>
-      <h1 className="ml-2 ">Welcome {user.name} </h1>
+      <h1 className="ml-2 ">Welcome {user.name}</h1>
       <Row>
-        {store.allProducts?.map((product) => (
-          <Col
-            key={product._id}
-            lg={3}
-            md={4}
-            sm={6}
-            xs={12}
-            className="mb-4 d-flex "
-          >
-            <ProductCard
-              product={product}
-              setProduct={props.setProduct}
-              // handleProductClick={handleProductClick}
-            />
-          </Col>
-        ))}
+        {store.allProducts?.map((product) =>
+          product.category === category || !category ? (
+            <Col
+              key={product._id}
+              lg={3}
+              md={4}
+              sm={6}
+              xs={12}
+              className="mb-4 d-flex"
+            >
+              <ProductCard
+                product={product}
+                setProduct={props.setProduct}
+                userId={userId}
+              />
+            </Col>
+          ) : null
+        )}
       </Row>
     </>
   );

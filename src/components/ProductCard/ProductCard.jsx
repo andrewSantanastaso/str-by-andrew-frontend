@@ -9,12 +9,22 @@ import {
   Row,
   Col,
 } from "react-bootstrap";
-import * as productService from "../../services/productService";
+import * as cartService from "../../services/cartService";
+import * as authService from "../../services/authService";
 import { useNavigate, Link, useBlocker } from "react-router-dom";
 import { useState } from "react";
 
 const ProductCard = (props) => {
   const navigate = useNavigate();
+  const handleAddToCart = async (event) => {
+    let user = authService.getUser();
+    console.log(user);
+    const product = await cartService.addToCart(
+      user._id._id,
+      event.currentTarget.id
+    );
+    props.setCart = product;
+  };
 
   return (
     <Card
@@ -22,12 +32,12 @@ const ProductCard = (props) => {
       className="m-auto d-flex"
       id={props.product._id}
     >
-      <Link to={`/products/${props.product._id}`}>
+      <Link to={`/products/:userId/${props.product._id}`}>
         <CardImg
           variant="top"
           src={`${props.product.image}`}
           alt={props.product.alt}
-          className="d-flex m-auto mt-2"
+          className="d-flex m-auto mt-1 p-1"
           style={{ width: "15rem", height: "10rem" }}
         />
         <CardBody>
@@ -42,8 +52,10 @@ const ProductCard = (props) => {
         className="align-bottom"
         onClick={(e) => {
           e.stopPropagation();
-          console.log("button");
+          console.log(e.currentTarget);
+          handleAddToCart(e);
         }}
+        id={props.product._id}
       >
         Add To Cart
       </Button>

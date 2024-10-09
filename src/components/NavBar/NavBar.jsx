@@ -3,25 +3,68 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import CartIcon from "../Cart/CartIcon";
-import { Link } from "react-router-dom";
+import CartIcon from "../CartIcon/CartIcon";
+import { Link, useNavigate } from "react-router-dom";
+import * as authService from "../../services/authService";
+import * as cartService from "../../services/cartService";
+import { useState } from "react";
 
 const NavHead = (props) => {
+  const navigate = useNavigate();
+  let user = authService.getUser();
+  console.log(user);
+  const [category, setCategory] = useState("");
+
+  const handleCategoryClick = (event) => {
+    setCategory(event.target.id);
+  };
+
+  const redirectHome = async () => {
+    {
+      const currentUser = await authService.getUser();
+
+      // if (!currentUser) {
+      //   alert("Username or password incorrect");
+      //   redirect("/sign-in");
+      //   throw new Error();
+      // }
+      // if (currentUser._id.isAdmin === true) {
+      //   navigate("/admin");
+      // } else {
+      setCategory("");
+      navigate(`/home/${currentUser._id._id}`);
+    }
+  };
+
   return (
     <Navbar expand="md" className="bg-body-secondary">
       <Container fluid>
-        <Navbar.Brand href="#home">STR by Andrew</Navbar.Brand>
+        <Navbar.Brand>STR by Andrew</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/home">Home</Nav.Link>
-            <Nav.Link href="#link">Link</Nav.Link>
-            <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Another action
+            <Nav.Link onClick={redirectHome}>Home</Nav.Link>
+
+            <NavDropdown title="Options" id="basic-nav-dropdown">
+              <NavDropdown.Item
+                href={`/home/${user._id._id}/${category}`}
+                id="shirts"
+                onClick={handleCategoryClick}
+                category={category}
+              >
+                Shirts
               </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+              <NavDropdown.Item
+                href={`/home/${user._id._id}/${category}`}
+                id="pants"
+                onClick={handleCategoryClick}
+                category={category}
+              >
+                Pants
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/home/:userId/Shirts">
+                Shoes
+              </NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item>
                 <NavItem>

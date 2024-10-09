@@ -9,7 +9,8 @@ import SignInForm from "./components/SignInForm/SignInForm";
 import SignUpForm from "./components/SignUpForm/SignUpForm";
 import Admin from "./components/Admin/Admin";
 import NewProductForm from "./components/NewProductForm/NewProductForm";
-import CartIcon from "./components/Cart/CartIcon";
+import Cart from "./components/Cart/Cart";
+import CartIcon from "./components/CartIcon/CartIcon";
 import ProductShow from "./components/ProductShow/ProductShow";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -29,29 +30,36 @@ const App = () => {
 
   return (
     <>
-      <NavHead
-        handleSignout={handleSignout}
-        cart={cart}
-        element={<CartIcon path="/cart" />}
-      />
-      <Routes>
-        {user ? (
-          <Route path="/home" element={<Home user={user} />} />
-        ) : (
+      {!user ? (
+        <Routes>
           <Route path="/" element={<Landing />} />
-        )}
-        <Route
-          path="/sign-in"
-          element={<SignInForm setUser={setUser} user={currentUser} />}
-        />
-        <Route path="/sign-up" element={<SignUpForm setUser={setUser} />} />
-        <Route path="/home" element={<Home user={user} />} />
-        <Route path="/" element={<Landing />} />
-
-        <Route path="/admin" element={<Admin user={user} />} />
-        <Route path="/admin/new-product-form" element={<NewProductForm />} />
-        <Route path="/products/:productId" element={<ProductShow />} />
-      </Routes>
+          <Route path="/sign-in" element={<SignInForm setUser={setUser} />} />
+          <Route path="/sign-up" element={<SignUpForm setUser={setUser} />} />
+        </Routes>
+      ) : (
+        <>
+          <NavHead handleSignout={handleSignout} cart={cart} />
+          <Routes>
+            <Route path="/sign-in" element={<SignInForm setUser={setUser} />} />
+            <Route path="/sign-up" element={<SignUpForm setUser={setUser} />} />
+            <Route
+              path={`/home/${user._id._id}`}
+              element={<Home user={user} setCart={setCart} cart={cart} />}
+            />
+            <Route
+              path={`/home/${user._id._id}/:category`}
+              element={<Home user={user} setCart={setCart} cart={cart} />}
+            />
+            <Route path="/" element={<Landing />} />
+            <Route path="/admin" element={<Admin user={user} />} />
+            <Route
+              path="/admin/new-product-form"
+              element={<NewProductForm />}
+            />
+            <Route path={`/cart/${user._id._id}`} element={<Cart />} />
+          </Routes>
+        </>
+      )}
     </>
   );
 };
