@@ -1,4 +1,4 @@
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, FloatingLabel } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import * as authService from "../../services/authService";
@@ -21,6 +21,7 @@ const SignUpForm = (props) => {
       const user = await authService.signup(formData); // TODO build signin service function
 
       await props.setUser(user);
+      console.log(user);
       navigate("/home");
     } catch (err) {
       console.error({ error: err.message });

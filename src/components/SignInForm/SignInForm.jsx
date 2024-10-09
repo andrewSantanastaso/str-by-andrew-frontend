@@ -1,6 +1,7 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, redirect, useNavigate } from "react-router-dom";
 import * as authService from "../../services/authService";
+import { alignPropType } from "react-bootstrap/esm/types";
 
 const SignInForm = (props) => {
   const navigate = useNavigate(); // added this for navigation purposes
@@ -9,7 +10,22 @@ const SignInForm = (props) => {
     username: "",
     password: "",
   });
+  const redirectCurrentuser = async () => {
+    {
+      const currentUser = await authService.getUser();
 
+      if (!currentUser) {
+        alert("Username or password incorrect");
+        redirect("/sign-in");
+        throw new Error();
+      }
+      if (currentUser._id.isAdmin === true) {
+        navigate("/admin");
+      } else {
+        navigate("/home");
+      }
+    }
+  };
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -20,14 +36,8 @@ const SignInForm = (props) => {
       const user = await authService.signin(formData);
 
       props.setUser(user);
-      if (!user) {
-        throw new Error();
-      }
-      if (user.isAdmin) {
-        navigate("/admin");
-      } else {
-        navigate("/home");
-      }
+      console.log(user);
+      redirectCurrentuser();
     } catch (err) {
       console.error({ error: err.message });
     }

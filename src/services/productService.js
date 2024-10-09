@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const BACKEND_URL = import.meta.env.VITE_EXPRESS_BACKEND_URL
 
 const loadProducts = async () => {
@@ -37,4 +39,20 @@ const addProduct = async (formData) => {
     loadProducts()
 }
 
-export { loadProducts, addProduct }
+const showProduct = async (productId) => {
+
+    try {
+        const res = await fetch(`${BACKEND_URL}/${productId}`, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+        })
+        const json = await res.json()
+        return json
+
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export { loadProducts, addProduct, showProduct }

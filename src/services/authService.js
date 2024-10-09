@@ -59,6 +59,7 @@ const getUser = () => {
 
 const signout = () => {
     localStorage.removeItem('token')
+
 }
 
 

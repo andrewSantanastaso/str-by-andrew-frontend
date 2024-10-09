@@ -3,6 +3,7 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import CartIcon from "../Cart/CartIcon";
 import { Link } from "react-router-dom";
 
 const NavHead = (props) => {
@@ -13,7 +14,7 @@ const NavHead = (props) => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
+            <Nav.Link href="/home">Home</Nav.Link>
             <Nav.Link href="#link">Link</Nav.Link>
             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
@@ -24,7 +25,7 @@ const NavHead = (props) => {
               <NavDropdown.Divider />
               <NavDropdown.Item>
                 <NavItem>
-                  <Link to="" onClick={props.handleSignOut}>
+                  <Link to="" onClick={props.handleSignout}>
                     Sign Out
                   </Link>
                 </NavItem>
@@ -32,6 +33,7 @@ const NavHead = (props) => {
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
+        <CartIcon cart={props.cart} />
       </Container>
     </Navbar>
   );

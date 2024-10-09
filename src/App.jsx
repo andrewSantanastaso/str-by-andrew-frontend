@@ -9,39 +9,48 @@ import SignInForm from "./components/SignInForm/SignInForm";
 import SignUpForm from "./components/SignUpForm/SignUpForm";
 import Admin from "./components/Admin/Admin";
 import NewProductForm from "./components/NewProductForm/NewProductForm";
+import CartIcon from "./components/Cart/CartIcon";
+import ProductShow from "./components/ProductShow/ProductShow";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import "./App.css";
 
 const App = () => {
   const [user, setUser] = useState(authService.getUser());
+  const [cart, setCart] = useState([]);
 
   const navigate = useNavigate();
   const handleSignout = () => {
+    setUser("");
     authService.signout();
-    setUser(null);
     navigate("/");
   };
-  let currentUser = async () => {
-    await authService.getUser();
-  };
+  let currentUser = authService.getUser();
 
   return (
     <>
-      <NavHead handleSignout={handleSignout} />
+      <NavHead
+        handleSignout={handleSignout}
+        cart={cart}
+        element={<CartIcon path="/cart" />}
+      />
       <Routes>
         {user ? (
           <Route path="/home" element={<Home user={user} />} />
         ) : (
           <Route path="/" element={<Landing />} />
         )}
-        <Route path="/sign-in" element={<SignInForm setUser={setUser} />} />
+        <Route
+          path="/sign-in"
+          element={<SignInForm setUser={setUser} user={currentUser} />}
+        />
         <Route path="/sign-up" element={<SignUpForm setUser={setUser} />} />
-        <Route path="/home" element={<Home user={currentUser} />} />
+        <Route path="/home" element={<Home user={user} />} />
         <Route path="/" element={<Landing />} />
 
-        <Route path="/admin" element={<Admin />} />
+        <Route path="/admin" element={<Admin user={user} />} />
         <Route path="/admin/new-product-form" element={<NewProductForm />} />
+        <Route path="/products/:productId" element={<ProductShow />} />
       </Routes>
     </>
   );
