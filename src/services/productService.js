@@ -71,4 +71,18 @@ const editProduct = async (productId, product) => {
     }
 }
 
-export { loadProducts, addProduct, showProduct, editProduct }
+
+const deleteProduct = async (productId) => {
+    try {
+        const res = await fetch(`${BACKEND_URL}/delete/${productId}`, {
+            method: "DELETE",
+            headers: { 'Content-Type': 'application/json' }
+        })
+        const json = await res.json()
+        return json
+    } catch (error) {
+        console.log({ error: error.message })
+    }
+}
+
+export { loadProducts, addProduct, showProduct, editProduct, deleteProduct }

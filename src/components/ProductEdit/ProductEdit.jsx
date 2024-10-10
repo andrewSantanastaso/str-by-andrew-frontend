@@ -1,12 +1,14 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import * as productService from "../../services/productService";
+import * as authService from "../../services/authService";
 import { Form, FormControl, InputGroup, Button } from "react-bootstrap";
 
 const ProductEdit = () => {
   const { productId } = useParams();
   const [product, setProduct] = useState({});
-
+  const user = authService.getUser();
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -30,6 +32,16 @@ const ProductEdit = () => {
       await productService.editProduct(productId, product);
     } catch (err) {
       console.error({ error: err.message });
+    }
+  };
+  const handleDelete = async () => {
+    try {
+      await productService.deleteProduct(productId);
+      console.log(`This is ${productId}`);
+
+      navigate(`/home/${user._id._id}`);
+    } catch (error) {
+      console.error({ error: error.message });
     }
   };
   const handleChange = (e) => {
@@ -136,6 +148,14 @@ const ProductEdit = () => {
           <Form.Group>
             <Button type="submit" className="mt-5">
               Add Product to Store
+            </Button>
+            <Button
+              type="button"
+              className="mt-5"
+              variant="danger"
+              onClick={handleDelete}
+            >
+              Delete Product From Store
             </Button>
           </Form.Group>
         </Form.Group>
