@@ -12,14 +12,6 @@ const Home = (props) => {
   const { userId, category } = useParams();
   console.log(category);
   const [store, setStore] = useState([]);
-  const navigate = useNavigate();
-  const handleProductClick = async (event) => {
-    console.log(event.target.id);
-    const product = await productService.showProduct(event.target.id);
-
-    props.setProduct(product);
-    navigate("/products");
-  };
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -36,7 +28,7 @@ const Home = (props) => {
 
   return (
     <>
-      <h1 className="ml-2 ">Welcome {user.name}</h1>
+      <h1 className="m-2 ">Welcome {user.name}</h1>
       <Row>
         {store.allProducts?.map((product) =>
           product.category === category || !category ? (
@@ -52,6 +44,8 @@ const Home = (props) => {
                 product={product}
                 setProduct={props.setProduct}
                 userId={userId}
+                setCart={props.setCart}
+                cart={props.cart}
               />
             </Col>
           ) : null

@@ -8,6 +8,7 @@ import {
   Button,
   Row,
   Col,
+  Badge,
 } from "react-bootstrap";
 import * as cartService from "../../services/cartService";
 import * as authService from "../../services/authService";
@@ -16,6 +17,8 @@ import { useState } from "react";
 
 const ProductCard = (props) => {
   const navigate = useNavigate();
+  let user = authService.getUser();
+  let outOfStock = false;
   const handleAddToCart = async (event) => {
     let user = authService.getUser();
     console.log(user);
@@ -23,16 +26,18 @@ const ProductCard = (props) => {
       user._id._id,
       event.currentTarget.id
     );
-    props.setCart = product;
+    props.setCart([...props.cart, product]);
   };
-
+  if (props.product.stock <= 5) {
+    outOfStock === true;
+  }
   return (
     <Card
       key={props.product._id}
       className="m-auto d-flex"
       id={props.product._id}
     >
-      <Link to={`/products/:userId/${props.product._id}`}>
+      <Link to={`/products/${user._id._id}}/${props.product._id}`}>
         <CardImg
           variant="top"
           src={`${props.product.image}`}
@@ -45,14 +50,26 @@ const ProductCard = (props) => {
             {props.product.name}
             <br />${props.product.price}
           </CardTitle>
-          <CardText>{props.product.description}</CardText>
+          <CardText>
+            {props.product.description}
+            {props.product.stock <= 5 ? (
+              <Badge className="bg-warning text-dark d-inline position-absolute end-0 m-1">
+                Low Stock!
+              </Badge>
+            ) : null}
+            {props.product.stock <= 0 ? (
+              <Badge className="bg-danger text-white d-inline position-absolute end-0 m-1">
+                Out of Stock
+              </Badge>
+            ) : null}
+          </CardText>
         </CardBody>
       </Link>
       <Button
         className="align-bottom"
         onClick={(e) => {
           e.stopPropagation();
-          console.log(e.currentTarget);
+
           handleAddToCart(e);
         }}
         id={props.product._id}

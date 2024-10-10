@@ -45,6 +45,7 @@ const showProduct = async (productId) => {
         const res = await fetch(`${BACKEND_URL}/${productId}`, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' }
+
         })
         const json = await res.json()
         return json
@@ -55,4 +56,19 @@ const showProduct = async (productId) => {
     }
 }
 
-export { loadProducts, addProduct, showProduct }
+const editProduct = async (productId, product) => {
+    try {
+        const res = await fetch(`${BACKEND_URL}/edit/${productId}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(product)
+        })
+        const json = await res.json()
+        return json
+    } catch (error) {
+        console.error({ error: error.message })
+
+    }
+}
+
+export { loadProducts, addProduct, showProduct, editProduct }

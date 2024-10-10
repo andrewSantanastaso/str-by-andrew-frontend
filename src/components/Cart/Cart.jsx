@@ -2,8 +2,8 @@ import * as cartService from "../../services/cartService";
 import * as authService from "../../services/authService";
 import { useState, useEffect } from "react";
 
-const Cart = () => {
-  const [cart, setCart] = useState([]);
+const Cart = (props) => {
+  const [userCart, setUserCart] = useState([]);
   useEffect(() => {
     const fetchCartItems = async () => {
       let user = await authService.getUser();
@@ -11,7 +11,7 @@ const Cart = () => {
       try {
         const cartData = await cartService.loadCart(user._id._id);
 
-        setCart(cartData);
+        setUserCart(cartData);
       } catch (error) {
         console.log({ error: error.message });
       }
@@ -23,9 +23,9 @@ const Cart = () => {
   return (
     <>
       <ul>
-        {cart.products?.map((cartItem, index) => {
-          <li key={index}>{cartItem.name}</li>;
-        })}
+        {userCart.products?.map((cartItem) => (
+          <li key={cartItem._id}>{cartItem.name}</li>
+        ))}
       </ul>
     </>
   );

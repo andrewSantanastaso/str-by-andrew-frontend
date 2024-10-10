@@ -12,6 +12,7 @@ import NewProductForm from "./components/NewProductForm/NewProductForm";
 import Cart from "./components/Cart/Cart";
 import CartIcon from "./components/CartIcon/CartIcon";
 import ProductShow from "./components/ProductShow/ProductShow";
+import ProductEdit from "./components/ProductEdit/ProductEdit";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import "./App.css";
@@ -56,7 +57,15 @@ const App = () => {
               path="/admin/new-product-form"
               element={<NewProductForm />}
             />
-            <Route path={`/cart/${user._id._id}`} element={<Cart />} />
+            <Route
+              path="/products/:userId/:productId"
+              element={<ProductShow />}
+            />
+            <Route path="/products/edit/:productId" element={<ProductEdit />} />
+            <Route
+              path={`/cart/${user._id._id}`}
+              element={<Cart cart={cart} />}
+            />
           </Routes>
         </>
       )}
