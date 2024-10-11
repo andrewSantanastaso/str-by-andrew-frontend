@@ -39,7 +39,11 @@ const App = () => {
         </Routes>
       ) : (
         <>
-          <NavHead handleSignout={handleSignout} cart={cart} />
+          <NavHead
+            handleSignout={handleSignout}
+            cart={cart}
+            setCart={setCart}
+          />
           <Routes>
             <Route path="/sign-in" element={<SignInForm setUser={setUser} />} />
             <Route path="/sign-up" element={<SignUpForm setUser={setUser} />} />

@@ -2,9 +2,20 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 import { useParams } from "react-router-dom";
-import { Card, CardImg } from "react-bootstrap";
+import {
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  CardImg,
+  CardSubtitle,
+  CardTitle,
+  Container,
+  CardText,
+} from "react-bootstrap";
 import * as productService from "../../services/productService";
 import * as authService from "../../services/authService";
+import * as cartService from "../../services/cartService";
 import { Link } from "react-router-dom";
 
 const ProductShow = (props) => {
@@ -24,18 +35,43 @@ const ProductShow = (props) => {
     };
     fetchProduct();
   }, [productId]);
+  const handleAddToCart = async (event) => {
+    let user = authService.getUser();
+    console.log(user);
+    const product = await cartService.addToCart(
+      user._id._id,
+      event.currentTarget.id
+    );
+    props.setCart([...props.cart, product]);
+    await cartService.loadCart(user._id._id);
+  };
   console.log(product);
   return (
     <>
-      <Card>
-        <CardImg src={product.image} variant="center" />
-        <h1 className="m-auto">{product.name}</h1>
-        {user._id.isAdmin ? (
-          <Link to={`/products/edit/${product._id}`}>
-            <p>Edit</p>
-          </Link>
-        ) : null}
-      </Card>
+      <Container className="d-flex m-auto p-2 justify-content-center">
+        <Card>
+          <CardImg
+            src={product.image}
+            variant="center"
+            style={{ width: "50rem", height: "50rem" }}
+          />
+
+          {user._id.isAdmin ? (
+            <Link to={`/products/edit/${product._id}`}>
+              <p>Edit</p>
+            </Link>
+          ) : null}
+          <CardBody className="d-flex-column align-items-center">
+            <CardTitle>{product.name}</CardTitle>
+            <CardSubtitle></CardSubtitle>
+            <CardText></CardText>
+            <CardFooter>
+              <Button>Add To Cart</Button>
+              <Button variant="danger">Cancel</Button>
+            </CardFooter>
+          </CardBody>
+        </Card>
+      </Container>
     </>
   );
 };

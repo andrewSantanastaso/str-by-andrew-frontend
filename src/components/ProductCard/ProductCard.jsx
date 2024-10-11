@@ -33,7 +33,7 @@ const ProductCard = (props) => {
     outOfStock === true;
   }
   return (
-    <Container className="d-flex m-auto ">
+    <Container className="d-flex m-auto p-2">
       <Card
         key={props.product._id}
         className="m-auto d-flex justify-content-center"

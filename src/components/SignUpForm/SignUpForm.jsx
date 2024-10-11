@@ -1,7 +1,8 @@
-import { Form, Button, FloatingLabel } from "react-bootstrap";
+import { Form, Button, FloatingLabel, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import * as authService from "../../services/authService";
+import { Link } from "react-router-dom";
 
 const SignUpForm = (props) => {
   const navigate = useNavigate();
@@ -76,13 +77,14 @@ const SignUpForm = (props) => {
             className="border border-secondary"
           />
         </Form.Group>
-        <Button
-          variant="primary"
-          type="submit"
-          className="mt-3 d-flex align-middle"
-        >
-          Submit
-        </Button>
+        <Container className="d-flex justify-content-evenly m-auto p-2">
+          <Button variant="primary" type="submit">
+            Submit
+          </Button>
+          <Link to="/">
+            <Button variant="danger">Cancel</Button>
+          </Link>
+        </Container>
       </Form>
     </>
   );

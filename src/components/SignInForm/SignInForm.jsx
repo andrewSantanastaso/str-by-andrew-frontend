@@ -1,7 +1,14 @@
 import { useState, useEffect } from "react";
 import { Link, redirect, useNavigate } from "react-router-dom";
 import * as authService from "../../services/authService";
-import { alignPropType } from "react-bootstrap/esm/types";
+import {
+  Form,
+  Card,
+  Button,
+  FormLabel,
+  FormControl,
+  Container,
+} from "react-bootstrap";
 
 const SignInForm = (props) => {
   const navigate = useNavigate(); // added this for navigation purposes
@@ -46,38 +53,50 @@ const SignInForm = (props) => {
 
   return (
     <main>
-      <h1>Log In</h1>
-
-      <form autoComplete="off" onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email">Username:</label>
-          <input
-            type="text"
-            autoComplete="off"
-            id="username"
-            value={formData.username}
-            name="username"
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            autoComplete="off"
-            id="password"
-            value={formData.password}
-            name="password"
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <button>Log In</button>
-          <Link to="/">
-            <button>Cancel</button>
-          </Link>
-        </div>
-      </form>
+      <Container
+        fluid
+        className="d-flex justify-content-center align-items-center align-self-center border border-danger vh-100"
+        style={{ height: "1000px" }}
+      >
+        <Card
+          style={{ width: "30rem" }}
+          className="d-flex p-1 border border-5 border-primary "
+        >
+          <h1 className="text-center">Log In</h1>
+          <Form onSubmit={handleSubmit}>
+            <div>
+              <FormLabel htmlFor="email">Username:</FormLabel>
+              <FormControl
+                type="text"
+                autoComplete="off"
+                id="username"
+                value={formData.username}
+                name="username"
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <FormLabel htmlFor="password">Password:</FormLabel>
+              <FormControl
+                type="password"
+                autoComplete="off"
+                id="password"
+                value={formData.password}
+                name="password"
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <Container className="d-flex justify-content-evenly">
+                <Button type="submit">Log In</Button>
+                <Link to="/">
+                  <Button variant="danger">Cancel</Button>
+                </Link>
+              </Container>
+            </div>
+          </Form>
+        </Card>
+      </Container>
     </main>
   );
 };

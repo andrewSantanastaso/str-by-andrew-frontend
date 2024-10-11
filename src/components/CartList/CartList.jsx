@@ -1,5 +1,5 @@
 import { Table, Button } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { useEffect } from "react";
 import * as cartService from "../../services/cartService";
 import * as authService from "../../services/authService";
 
@@ -27,6 +27,22 @@ const CartList = ({ cart, setUserCart }) => {
       console.error(error);
     }
   };
+
+  useEffect(() => {
+    const fetchCartItems = async () => {
+      let user = await authService.getUser();
+
+      try {
+        const cartData = await cartService.loadCart(user._id._id);
+
+        setUserCart(cartData);
+      } catch (error) {
+        console.log({ error: error.message });
+      }
+    };
+
+    fetchCartItems();
+  }, [cart]);
 
   const handlePurchase = async (product) => {
     try {

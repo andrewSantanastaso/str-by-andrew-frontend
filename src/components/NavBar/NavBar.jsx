@@ -97,7 +97,7 @@ const NavHead = (props) => {
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
-        <CartIcon cart={props.cart} />
+        <CartIcon cart={props.cart} setCart={props.setCart} />
       </Container>
     </Navbar>
   );
