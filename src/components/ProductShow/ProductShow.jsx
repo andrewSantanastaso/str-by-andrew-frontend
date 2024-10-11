@@ -12,6 +12,7 @@ import {
   CardTitle,
   Container,
   CardText,
+  Badge,
 } from "react-bootstrap";
 import * as productService from "../../services/productService";
 import * as authService from "../../services/authService";
@@ -63,11 +64,22 @@ const ProductShow = (props) => {
           ) : null}
           <CardBody className="d-flex-column align-items-center">
             <CardTitle>{product.name}</CardTitle>
-            <CardSubtitle></CardSubtitle>
-            <CardText></CardText>
-            <CardFooter>
-              <Button>Add To Cart</Button>
-              <Button variant="danger">Cancel</Button>
+            <CardSubtitle>${product.price}</CardSubtitle>
+
+            <CardText>{product.description}</CardText>
+            {product.stock <= 5 ? (
+              <Badge className="bg-warning text-dark  m-auto ">
+                Low Stock!
+              </Badge>
+            ) : null}
+
+            <CardFooter className="d-flex justify-content-evenly">
+              <Button style={{ width: "20rem" }}>Add To Cart</Button>
+              <Link to={`/home/${user._id._id}`}>
+                <Button variant="danger" style={{ width: "20rem" }}>
+                  Cancel
+                </Button>
+              </Link>
             </CardFooter>
           </CardBody>
         </Card>
