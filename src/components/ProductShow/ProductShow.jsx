@@ -1,6 +1,4 @@
-import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-
 import { useParams } from "react-router-dom";
 import {
   Button,
@@ -20,14 +18,13 @@ import * as cartService from "../../services/cartService";
 import { Link } from "react-router-dom";
 
 const ProductShow = (props) => {
-  const { productId, userId } = useParams();
-  const navigate = useNavigate();
+  const { productId } = useParams();
+
   const [product, setProduct] = useState({});
   let user = authService.getUser();
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        let user = authService.getUser;
         const productData = await productService.showProduct(productId);
         setProduct(productData);
       } catch (error) {
@@ -36,17 +33,14 @@ const ProductShow = (props) => {
     };
     fetchProduct();
   }, [productId]);
-  const handleAddToCart = async (event) => {
+  const handleAddToCart = async () => {
     let user = authService.getUser();
-    console.log(user);
-    const product = await cartService.addToCart(
-      user._id._id,
-      event.currentTarget.id
-    );
+
+    const product = await cartService.addToCart(user._id._id, productId);
     props.setCart([...props.cart, product]);
     await cartService.loadCart(user._id._id);
   };
-  console.log(product);
+
   return (
     <>
       <Container className="d-flex m-auto p-2 justify-content-center">
@@ -74,7 +68,9 @@ const ProductShow = (props) => {
             ) : null}
 
             <CardFooter className="d-flex justify-content-evenly">
-              <Button style={{ width: "20rem" }}>Add To Cart</Button>
+              <Button style={{ width: "20rem" }} onClick={handleAddToCart}>
+                Add To Cart
+              </Button>
               <Link to={`/home/${user._id._id}`}>
                 <Button variant="danger" style={{ width: "20rem" }}>
                   Cancel

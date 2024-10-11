@@ -6,13 +6,12 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import CartIcon from "../CartIcon/CartIcon";
 import { Link, useNavigate } from "react-router-dom";
 import * as authService from "../../services/authService";
-import * as cartService from "../../services/cartService";
 import { useState } from "react";
 
 const NavHead = (props) => {
   const navigate = useNavigate();
   let user = authService.getUser();
-  console.log(user);
+
   const [category, setCategory] = useState("");
 
   const handleCategoryClick = (event) => {
@@ -23,14 +22,6 @@ const NavHead = (props) => {
     {
       const currentUser = await authService.getUser();
 
-      // if (!currentUser) {
-      //   alert("Username or password incorrect");
-      //   redirect("/sign-in");
-      //   throw new Error();
-      // }
-      // if (currentUser._id.isAdmin === true) {
-      //   navigate("/admin");
-      // } else {
       setCategory("");
       navigate(`/home/${currentUser._id._id}`);
     }

@@ -6,28 +6,23 @@ import {
   CardTitle,
   Container,
   Button,
-  Row,
-  Col,
   Badge,
 } from "react-bootstrap";
 import * as cartService from "../../services/cartService";
 import * as authService from "../../services/authService";
-import { useNavigate, Link, useBlocker } from "react-router-dom";
-import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const ProductCard = (props) => {
-  const navigate = useNavigate();
   let user = authService.getUser();
   let outOfStock = false;
-  const handleAddToCart = async (event) => {
+  const handleAddToCart = async (item) => {
     let user = authService.getUser();
-    console.log(user);
-    const product = await cartService.addToCart(
-      user._id._id,
-      event.currentTarget.id
-    );
-    props.setCart([...props.cart, product]);
-    await cartService.loadCart(user._id._id);
+
+    const product = await cartService.addToCart(user._id._id, item._id);
+
+    props.setCart([...props.cart.products, product]);
+
+    props.refreshCart();
   };
   if (props.product.stock <= 5) {
     outOfStock === true;
@@ -73,7 +68,7 @@ const ProductCard = (props) => {
           onClick={(e) => {
             e.stopPropagation();
 
-            handleAddToCart(e);
+            handleAddToCart(props.product);
           }}
           id={props.product._id}
         >

@@ -1,4 +1,3 @@
-import NewProductForm from "../NewProductForm/NewProductForm";
 import { Link } from "react-router-dom";
 
 const Admin = (props) => {

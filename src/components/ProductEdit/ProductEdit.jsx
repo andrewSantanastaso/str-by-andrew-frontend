@@ -22,10 +22,6 @@ const ProductEdit = () => {
     fetchProduct();
   }, [productId]);
 
-  //   const [formData, setFormData] = useState({
-  //     name: "",
-  //     price: null,
-  //   });
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -37,7 +33,6 @@ const ProductEdit = () => {
   const handleDelete = async () => {
     try {
       await productService.deleteProduct(productId);
-      console.log(`This is ${productId}`);
 
       navigate(`/home/${user._id._id}`);
     } catch (error) {

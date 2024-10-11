@@ -25,11 +25,10 @@ const Cart = (props) => {
 
     fetchCartItems();
   }, []);
-  console.log(`User Cart ${userCart}`);
+
   const handleDelete = async (e) => {
     try {
       await cartService.removeFromCart(user._id._id, e.target.id);
-      console.log(e.target.id);
     } catch (error) {
       console.error({ error: error.message });
     }

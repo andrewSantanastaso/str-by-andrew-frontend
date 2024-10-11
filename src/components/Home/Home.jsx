@@ -1,16 +1,17 @@
 import { useState, useEffect } from "react";
 import * as productService from "../../services/productService";
+import * as cartService from "../../services/cartService";
+import * as authService from "../../services/authService";
+
 import { Row, Col } from "react-bootstrap";
 import ProductCard from "../ProductCard/ProductCard";
-import { useNavigate, useParams } from "react-router-dom";
-import * as authService from "../../services/authService";
-import * as cartService from "../../services/cartService";
+import { useParams } from "react-router-dom";
 
 const Home = (props) => {
   const user = props.user._id || props.user.user;
-
+  const [cart, setCart] = useState([]);
   const { userId, category } = useParams();
-  console.log(category);
+
   const [store, setStore] = useState([]);
 
   useEffect(() => {
@@ -24,7 +25,33 @@ const Home = (props) => {
     };
     fetchProducts();
   }, []);
-  console.log(store.allProducts);
+  // useEffect(() => {
+  //   const fetchCartItems = async () => {
+  //     let user = await authService.getUser();
+
+  //     try {
+  //       const cartData = await cartService.loadCart(user._id._id);
+
+  //       setCart(cartData);
+  //     } catch (error) {
+  //       console.log({ error: error.message });
+  //     }
+  //   };
+
+  //   fetchCartItems();
+  // }, []);
+
+  const refreshCart = async () => {
+    let user = await authService.getUser();
+
+    try {
+      const cartData = await cartService.loadCart(user._id._id);
+
+      setCart(cartData);
+    } catch (error) {
+      console.log({ error: error.message });
+    }
+  };
 
   return (
     <>
@@ -44,8 +71,9 @@ const Home = (props) => {
                 product={product}
                 setProduct={props.setProduct}
                 userId={userId}
-                setCart={props.setCart}
-                cart={props.cart}
+                setCart={setCart}
+                cart={cart}
+                refreshCart={refreshCart}
               />
             </Col>
           ) : null

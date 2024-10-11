@@ -16,21 +16,7 @@ const CartIcon = (props) => {
   };
 
   let user = authService.getUser();
-  useEffect(() => {
-    const fetchCartItems = async () => {
-      let user = await authService.getUser();
 
-      try {
-        const cartData = await cartService.loadCart(user._id._id);
-
-        props.set(cartData);
-      } catch (error) {
-        console.log({ error: error.message });
-      }
-    };
-
-    fetchCartItems();
-  }, []);
   return (
     <>
       <Link to={`/cart/${user._id._id}`} style={{ color: "black" }}>

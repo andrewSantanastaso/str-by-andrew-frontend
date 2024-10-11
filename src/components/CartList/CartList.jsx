@@ -42,7 +42,7 @@ const CartList = ({ cart, setUserCart }) => {
     };
 
     fetchCartItems();
-  }, [cart]);
+  }, []);
 
   const handlePurchase = async (product) => {
     try {

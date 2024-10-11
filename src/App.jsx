@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import * as authService from "../src/services/authService";
-import * as productService from "../src/services/productService";
 import NavHead from "./components/NavBar/NavBar";
 import Landing from "./components/Landing/Landing";
 import Home from "./components/Home/Home";
@@ -10,7 +9,6 @@ import SignUpForm from "./components/SignUpForm/SignUpForm";
 import Admin from "./components/Admin/Admin";
 import NewProductForm from "./components/NewProductForm/NewProductForm";
 import Cart from "./components/Cart/Cart";
-import CartIcon from "./components/CartIcon/CartIcon";
 import ProductShow from "./components/ProductShow/ProductShow";
 import ProductEdit from "./components/ProductEdit/ProductEdit";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -27,7 +25,6 @@ const App = () => {
     authService.signout();
     navigate("/");
   };
-  let currentUser = authService.getUser();
 
   return (
     <>
