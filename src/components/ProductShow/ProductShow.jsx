@@ -32,7 +32,7 @@ const ProductShow = (props) => {
         <h1 className="m-auto">{product.name}</h1>
         {user._id.isAdmin ? (
           <Link to={`/products/edit/${product._id}`}>
-            <p>Admin</p>
+            <p>Edit</p>
           </Link>
         ) : null}
       </Card>

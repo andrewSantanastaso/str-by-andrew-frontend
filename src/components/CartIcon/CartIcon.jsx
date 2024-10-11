@@ -3,14 +3,23 @@ import { Link } from "react-router-dom";
 import { Badge } from "react-bootstrap";
 import * as authService from "../../services/authService";
 const CartIcon = (props) => {
-  let cartLength = props.cart.length;
+  const getTotal = () => {
+    let cartItems = props.cart.products?.map((item) => {
+      return parseInt(item.quantity);
+    });
+    console.log(cartItems);
+    let total = 0;
+    let totalItems = cartItems?.reduce((acc, curr) => acc + curr, total);
+    return totalItems;
+  };
+
   let user = authService.getUser();
 
   return (
     <>
       <Link to={`/cart/${user._id._id}`} style={{ color: "black" }}>
         <BsCart2 style={{ width: "2rem", height: "2rem" }} />
-        {cartLength > 0 ? <Badge>{cartLength}</Badge> : <></>}
+        {getTotal() > 0 ? <Badge>{getTotal()}</Badge> : <></>}
       </Link>
     </>
   );

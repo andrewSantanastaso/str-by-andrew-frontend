@@ -23,6 +23,22 @@ const loadCart = async (userId) => {
             method: "GET",
             headers: { 'Content-Type': 'application/json' },
 
+
+        })
+
+        const json = await res.json()
+        return json
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const removeFromCart = async (userId, productId) => {
+    try {
+        const res = await fetch(`${BACKEND_URL}/cart/${userId}/${productId}/delete`, {
+            method: "DELETE",
+            headers: { 'Content-Type': 'application/json' }
+
         })
 
         const json = await res.json()
@@ -33,4 +49,4 @@ const loadCart = async (userId) => {
 }
 
 
-export { addToCart, loadCart }
+export { addToCart, loadCart, removeFromCart }

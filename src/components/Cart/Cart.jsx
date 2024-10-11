@@ -1,9 +1,14 @@
 import * as cartService from "../../services/cartService";
 import * as authService from "../../services/authService";
 import { useState, useEffect } from "react";
+import CartList from "../CartList/CartList";
+import { useParams } from "react-router-dom";
 
 const Cart = (props) => {
+  const { userId } = useParams();
   const [userCart, setUserCart] = useState([]);
+  const user = authService.getUser();
+
   useEffect(() => {
     const fetchCartItems = async () => {
       let user = await authService.getUser();
@@ -12,6 +17,7 @@ const Cart = (props) => {
         const cartData = await cartService.loadCart(user._id._id);
 
         setUserCart(cartData);
+        props.setCart(cartData);
       } catch (error) {
         console.log({ error: error.message });
       }
@@ -19,14 +25,23 @@ const Cart = (props) => {
 
     fetchCartItems();
   }, []);
-
+  console.log(`User Cart ${userCart}`);
+  const handleDelete = async (e) => {
+    try {
+      await cartService.removeFromCart(user._id._id, e.target.id);
+      console.log(e.target.id);
+    } catch (error) {
+      console.error({ error: error.message });
+    }
+  };
   return (
     <>
-      <ul>
-        {userCart.products?.map((cartItem) => (
-          <li key={cartItem._id}>{cartItem.name}</li>
-        ))}
-      </ul>
+      <CartList
+        cart={userCart.products}
+        handleDelete={handleDelete}
+        userId={userId}
+        setUserCart={setUserCart}
+      />
     </>
   );
 };
