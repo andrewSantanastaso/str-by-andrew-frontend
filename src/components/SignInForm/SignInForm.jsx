@@ -63,39 +63,37 @@ const SignInForm = (props) => {
           className="d-flex p-1 border border-5 border-primary "
         >
           <h1 className="text-center">Log In</h1>
-          <Form>
-            <form onSubmit={handleSubmit}>
-              <div>
-                <FormLabel htmlFor="email">Username:</FormLabel>
-                <FormControl
-                  type="text"
-                  autoComplete="off"
-                  id="username"
-                  value={formData.username}
-                  name="username"
-                  onChange={handleChange}
-                />
-              </div>
-              <div>
-                <FormLabel htmlFor="password">Password:</FormLabel>
-                <FormControl
-                  type="password"
-                  autoComplete="off"
-                  id="password"
-                  value={formData.password}
-                  name="password"
-                  onChange={handleChange}
-                />
-              </div>
-              <div>
-                <Container className="d-flex justify-content-evenly">
-                  <Button type="submit">Log In</Button>
-                  <Link to="/">
-                    <Button variant="danger">Cancel</Button>
-                  </Link>
-                </Container>
-              </div>
-            </form>
+          <Form onSubmit={handleSubmit}>
+            <div>
+              <FormLabel htmlFor="email">Username:</FormLabel>
+              <FormControl
+                type="text"
+                autoComplete="off"
+                id="username"
+                value={formData.username}
+                name="username"
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <FormLabel htmlFor="password">Password:</FormLabel>
+              <FormControl
+                type="password"
+                autoComplete="off"
+                id="password"
+                value={formData.password}
+                name="password"
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <Container className="d-flex justify-content-evenly">
+                <Button type="submit">Log In</Button>
+                <Link to="/">
+                  <Button variant="danger">Cancel</Button>
+                </Link>
+              </Container>
+            </div>
           </Form>
         </Card>
       </Container>
