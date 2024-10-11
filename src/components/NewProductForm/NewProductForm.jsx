@@ -8,8 +8,10 @@ import {
 } from "react-bootstrap";
 import { useState } from "react";
 import * as productService from "../../services/productService";
+import { useNavigate } from "react-router-dom";
 
 const NewProductForm = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     price: null,
@@ -27,8 +29,9 @@ const NewProductForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log(formData);
       await productService.addProduct(formData);
+      alert(`Added ${formData.name} to store succesfully`);
+      navigate("/admin");
     } catch (err) {
       console.error({ error: err.message });
     }
@@ -123,7 +126,7 @@ const NewProductForm = () => {
             />
           </Form.Group>
           <Form.Group>
-            <Button type="submit" className="mt-5">
+            <Button type="submit" className="mt-5" onClick={() => resizeTo()}>
               Add Product to Store
             </Button>
           </Form.Group>

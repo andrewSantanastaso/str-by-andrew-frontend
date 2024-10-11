@@ -48,5 +48,21 @@ const removeFromCart = async (userId, productId) => {
     }
 }
 
+const purchaseCart = async (productId, product) => {
+    try {
+
+        const res = await fetch(`${BACKEND_URL}/cart/stock/${productId}`, {
+            method: "PUT",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(product)
+        })
+        const json = await res.json()
+        return json
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 
 export { addToCart, loadCart, removeFromCart }

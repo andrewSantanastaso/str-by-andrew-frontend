@@ -7,7 +7,7 @@ const CartIcon = (props) => {
     let cartItems = props.cart.products?.map((item) => {
       return parseInt(item.quantity);
     });
-    console.log(cartItems);
+
     let total = 0;
     let totalItems = cartItems?.reduce((acc, curr) => acc + curr, total);
     return totalItems;

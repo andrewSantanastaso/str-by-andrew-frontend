@@ -62,8 +62,29 @@ const NavHead = (props) => {
               >
                 Pants
               </NavDropdown.Item>
-              <NavDropdown.Item href="/home/:userId/Shirts">
+              <NavDropdown.Item
+                href={`/home/${user._id._id}/${category}`}
+                id="shoes"
+                onClick={handleCategoryClick}
+                category={category}
+              >
                 Shoes
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                href={`/home/${user._id._id}/${category}`}
+                id="jackets"
+                onClick={handleCategoryClick}
+                category={category}
+              >
+                Jackets
+              </NavDropdown.Item>{" "}
+              <NavDropdown.Item
+                href={`/home/${user._id._id}/${category}`}
+                id="accessories"
+                onClick={handleCategoryClick}
+                category={category}
+              >
+                Accessories
               </NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item>

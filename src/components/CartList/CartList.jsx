@@ -27,6 +27,25 @@ const CartList = ({ cart, setUserCart }) => {
       console.error(error);
     }
   };
+
+  const handlePurchase = async (product) => {
+    try {
+      let removeStock = product.product.stock - product.quantity;
+
+      let updateItemStock = await cartService.purchaseCart(
+        cart?.map((item) => {
+          return item._id;
+        }),
+        cart?.map((item) => {
+          return removeStock;
+        })
+      );
+
+      return updateItemStock;
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <>
       <Table
@@ -62,11 +81,11 @@ const CartList = ({ cart, setUserCart }) => {
             </tr>
           ))}
           <tr>
-            <td colSpan={1}>
+            <td colSpan={2}>
               Total: {getTotal()}
               {}
             </td>
-            <td colSpan={2}>
+            <td colSpan={2} className="text-center">
               <Button className="d-inline-block">Purchase</Button>
             </td>
           </tr>

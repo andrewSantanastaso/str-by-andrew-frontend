@@ -38,7 +38,7 @@ const Home = (props) => {
               md={4}
               sm={6}
               xs={12}
-              className="mb-4 d-flex"
+              className="m-auto"
             >
               <ProductCard
                 product={product}
