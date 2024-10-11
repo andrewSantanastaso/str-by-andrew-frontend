@@ -63,7 +63,7 @@ const SignInForm = (props) => {
           className="d-flex p-1 border border-5 border-primary "
         >
           <h1 className="text-center">Log In</h1>
-          <Form>
+          <Form onSubmit={handleSubmit}>
             <div>
               <FormLabel htmlFor="email">Username:</FormLabel>
               <FormControl
