@@ -6,13 +6,15 @@
 
 ## Getting Started
 
-<h3>Link to application<h3>
+<h3>Link to application<h3> <h4>**Pending</h4>
 
 <h3>Planning Materials</h3>
 
+<a href='https://trello.com/invite/b/670022c9289e84b159cbc404/ATTI7921751ced11aec49fd08d6583ab84372A040C13/e-commerce-project'>Trello Board</a>
+
 <p>As you can see my planning materials and final product may differ, well good in concept after diving into the code and logic, I did have to adjust my original plans accordingly.</p>
 
-<h3>Link to Back-End Repository</h3>
+<a href='https://github.com/andrewSantanastaso/str-by-andrew-server'> <h3>Link to Back-End Repository</h3></a>
 
 ## Technologies
 
