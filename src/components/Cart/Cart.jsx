@@ -11,8 +11,6 @@ const Cart = (props) => {
 
   useEffect(() => {
     const fetchCartItems = async () => {
-      let user = await authService.getUser();
-
       try {
         const cartData = await cartService.loadCart(user._id._id);
 
@@ -24,7 +22,7 @@ const Cart = (props) => {
     };
 
     fetchCartItems();
-  }, []);
+  }, [userCart]);
 
   const handleDelete = async (e) => {
     try {

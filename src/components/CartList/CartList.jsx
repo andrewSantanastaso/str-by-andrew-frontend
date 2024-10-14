@@ -44,24 +44,6 @@ const CartList = ({ cart, setUserCart }) => {
     fetchCartItems();
   }, []);
 
-  const handlePurchase = async (product) => {
-    try {
-      let removeStock = product.product.stock - product.quantity;
-
-      let updateItemStock = await cartService.purchaseCart(
-        cart?.map((item) => {
-          return item._id;
-        }),
-        cart?.map((item) => {
-          return removeStock;
-        })
-      );
-
-      return updateItemStock;
-    } catch (error) {
-      console.error(error);
-    }
-  };
   return (
     <>
       <Table

@@ -1,9 +1,7 @@
 import { BsCart2 } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { Badge } from "react-bootstrap";
-import { useEffect } from "react";
 import * as authService from "../../services/authService";
-import * as cartService from "../../services/cartService";
 const CartIcon = (props) => {
   const getTotal = () => {
     let cartItems = props.cart.products?.map((item) => {
