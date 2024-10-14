@@ -6,7 +6,7 @@
 
 ## Getting Started
 
-<h3>Link to application<h3> <h4>**Pending</h4>
+<a href='https://str-by-andrew.netlify.app'><h3>Link to application<h3></a>
 
 <h3>Planning Materials</h3>
 
