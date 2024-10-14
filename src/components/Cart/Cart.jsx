@@ -22,20 +22,12 @@ const Cart = (props) => {
     };
 
     fetchCartItems();
-  }, [userCart]);
+  }, []);
 
-  const handleDelete = async (e) => {
-    try {
-      await cartService.removeFromCart(user._id._id, e.target.id);
-    } catch (error) {
-      console.error({ error: error.message });
-    }
-  };
   return (
     <>
       <CartList
         cart={userCart.products}
-        handleDelete={handleDelete}
         userId={userId}
         setUserCart={setUserCart}
       />

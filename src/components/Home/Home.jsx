@@ -10,7 +10,7 @@ import { useParams } from "react-router-dom";
 const Home = (props) => {
   const user = props.user._id || props.user.user;
   const [cart, setCart] = useState([]);
-  const { userId, category } = useParams();
+  const { category } = useParams();
 
   const [store, setStore] = useState([]);
 
@@ -70,7 +70,7 @@ const Home = (props) => {
               <ProductCard
                 product={product}
                 setProduct={props.setProduct}
-                userId={userId}
+                userId={user._id._id}
                 setCart={setCart}
                 cart={cart}
                 refreshCart={refreshCart}

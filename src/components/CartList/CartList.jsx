@@ -18,10 +18,8 @@ const CartList = ({ cart, setUserCart }) => {
     try {
       console.log(user._id._id);
       console.log(productId);
-      let updatedCart = await cartService.removeFromCart(
-        user._id._id,
-        productId
-      );
+      await cartService.removeFromCart(user._id._id, productId);
+      const updatedCart = await cartService.loadCart(user._id._id);
       setUserCart(updatedCart);
     } catch (error) {
       console.error(error);

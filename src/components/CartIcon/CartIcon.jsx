@@ -17,7 +17,7 @@ const CartIcon = (props) => {
 
   return (
     <>
-      <Link to={`/cart/${user._id._id}`} style={{ color: "black" }}>
+      <Link to={`/cart/`} style={{ color: "black" }}>
         <BsCart2 style={{ width: "2rem", height: "2rem" }} />
         {getTotal() > 0 ? <Badge>{getTotal()}</Badge> : <></>}
       </Link>

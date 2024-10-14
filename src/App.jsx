@@ -45,11 +45,11 @@ const App = () => {
             <Route path="/sign-in" element={<SignInForm setUser={setUser} />} />
             <Route path="/sign-up" element={<SignUpForm setUser={setUser} />} />
             <Route
-              path={`/home/${user._id._id}`}
+              path={`/home/`}
               element={<Home user={user} setCart={setCart} cart={cart} />}
             />
             <Route
-              path={`/home/${user._id._id}/:category`}
+              path={`/home/:category`}
               element={<Home user={user} setCart={setCart} cart={cart} />}
             />
             <Route path="/" element={<Landing />} />
@@ -63,10 +63,7 @@ const App = () => {
               element={<ProductShow />}
             />
             <Route path="/products/edit/:productId" element={<ProductEdit />} />
-            <Route
-              path={`/cart/${user._id._id}`}
-              element={<Cart setCart={setCart} />}
-            />
+            <Route path={`/cart`} element={<Cart setCart={setCart} />} />
           </Routes>
         </>
       )}

@@ -20,10 +20,8 @@ const NavHead = (props) => {
 
   const redirectHome = async () => {
     {
-      const currentUser = await authService.getUser();
-
       setCategory("");
-      navigate(`/home/${currentUser._id._id}`);
+      navigate(`/home/`);
     }
   };
 
@@ -38,7 +36,7 @@ const NavHead = (props) => {
 
             <NavDropdown title="Options" id="basic-nav-dropdown">
               <NavDropdown.Item
-                href={`/home/${user._id._id}/${category}`}
+                href={`/home/${category}`}
                 id="shirts"
                 onClick={handleCategoryClick}
                 category={category}
@@ -46,7 +44,7 @@ const NavHead = (props) => {
                 Shirts
               </NavDropdown.Item>
               <NavDropdown.Item
-                href={`/home/${user._id._id}/${category}`}
+                href={`/home/${category}`}
                 id="pants"
                 onClick={handleCategoryClick}
                 category={category}
@@ -54,7 +52,7 @@ const NavHead = (props) => {
                 Pants
               </NavDropdown.Item>
               <NavDropdown.Item
-                href={`/home/${user._id._id}/${category}`}
+                href={`/home/${category}`}
                 id="shoes"
                 onClick={handleCategoryClick}
                 category={category}
@@ -62,7 +60,7 @@ const NavHead = (props) => {
                 Shoes
               </NavDropdown.Item>
               <NavDropdown.Item
-                href={`/home/${user._id._id}/${category}`}
+                href={`/home/${category}`}
                 id="jackets"
                 onClick={handleCategoryClick}
                 category={category}
@@ -70,7 +68,7 @@ const NavHead = (props) => {
                 Jackets
               </NavDropdown.Item>{" "}
               <NavDropdown.Item
-                href={`/home/${user._id._id}/${category}`}
+                href={`/home/${category}`}
                 id="accessories"
                 onClick={handleCategoryClick}
                 category={category}
