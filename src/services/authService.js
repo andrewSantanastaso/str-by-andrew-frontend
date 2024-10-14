@@ -14,7 +14,7 @@ const signup = async (formData) => {
         if (json.err) {
             throw new Error(json.err);
         }
-        console.log('SignUp', json)
+
         return json;
     } catch (err) {
         console.log(err);
@@ -38,7 +38,7 @@ const signin = async (user) => {
             localStorage.setItem('token', json.token); // add this line to store the JWT token in localStorage
 
             const user = JSON.parse(atob(json.token.split('.')[1]));
-            console.log('SignIn', user)
+
             return user
 
         }
@@ -55,7 +55,7 @@ const getUser = () => {
     const token = localStorage.getItem('token');
     if (!token) return null;
     const user = JSON.parse(atob(token.split('.')[1]));
-    console.log('GeUser', user)
+
     return user;
 }
 
