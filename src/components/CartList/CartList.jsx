@@ -16,8 +16,6 @@ const CartList = ({ cart, setUserCart }) => {
   };
   const handleDelete = async (productId) => {
     try {
-      console.log(user._id._id);
-      console.log(productId);
       await cartService.removeFromCart(user._id._id, productId);
       const updatedCart = await cartService.loadCart(user._id._id);
       setUserCart(updatedCart);

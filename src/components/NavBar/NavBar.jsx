@@ -5,12 +5,10 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import CartIcon from "../CartIcon/CartIcon";
 import { Link, useNavigate } from "react-router-dom";
-import * as authService from "../../services/authService";
 import { useState } from "react";
 
 const NavHead = (props) => {
   const navigate = useNavigate();
-  let user = authService.getUser();
 
   const [category, setCategory] = useState("");
 

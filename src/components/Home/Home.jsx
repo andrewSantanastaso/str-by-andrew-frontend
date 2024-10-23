@@ -25,33 +25,6 @@ const Home = (props) => {
     };
     fetchProducts();
   }, []);
-  // useEffect(() => {
-  //   const fetchCartItems = async () => {
-  //     let user = await authService.getUser();
-
-  //     try {
-  //       const cartData = await cartService.loadCart(user._id._id);
-
-  //       setCart(cartData);
-  //     } catch (error) {
-  //       console.log({ error: error.message });
-  //     }
-  //   };
-
-  //   fetchCartItems();
-  // }, []);
-
-  const refreshCart = async () => {
-    let user = await authService.getUser();
-
-    try {
-      const cartData = await cartService.loadCart(user._id._id);
-
-      setCart(cartData);
-    } catch (error) {
-      console.log({ error: error.message });
-    }
-  };
 
   return (
     <>
@@ -73,7 +46,6 @@ const Home = (props) => {
                 userId={user._id._id}
                 setCart={setCart}
                 cart={cart}
-                refreshCart={refreshCart}
               />
             </Col>
           ) : null
