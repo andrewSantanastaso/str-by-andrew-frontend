@@ -10,7 +10,7 @@ const Landing = () => {
   return (
     <Container
       fluid
-      className="d-flex justify-content-center align-items-center align-self-center border border-danger vh-100"
+      className="d-flex justify-content-center align-items-center align-self-center vh-100"
       style={{ height: "1000px" }}
     >
       <Card
