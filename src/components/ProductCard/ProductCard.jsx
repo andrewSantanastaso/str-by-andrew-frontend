@@ -21,12 +21,12 @@ const ProductCard = (props) => {
       navigate("/");
       return;
     }
-    const product = await cartService.addToCart(user._id, item._id);
-    const newCart = {
-      ...props.cart,
-      products: [...props.cart.products, product],
-    };
-    props.setCart(newCart);
+    const cart = await cartService.addToCart(user._id, item._id);
+    // const newCart = {
+    //   ...props.cart,
+    //   products: [...props.cart.products, product],
+    // };
+    props.setCart(cart);
 
     // props.refreshCart();
   };
