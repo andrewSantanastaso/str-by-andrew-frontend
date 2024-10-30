@@ -29,11 +29,24 @@ const App = () => {
   return (
     <>
       {!user ? (
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/sign-in" element={<SignInForm setUser={setUser} />} />
-          <Route path="/sign-up" element={<SignUpForm setUser={setUser} />} />
-        </Routes>
+        <>
+          <NavHead
+            handleSignout={handleSignout}
+            cart={cart}
+            setCart={setCart}
+          />
+          <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route path="/sign-in" element={<SignInForm setUser={setUser} />} />
+            <Route path="/sign-up" element={<SignUpForm setUser={setUser} />} />
+            <Route
+              path={`/home`}
+              element={<Home user={user} setCart={setCart} cart={cart} />}
+            />
+
+            <Route path="/products/:productId" element={<ProductShow />} />
+          </Routes>
+        </>
       ) : (
         <>
           <NavHead
@@ -45,7 +58,7 @@ const App = () => {
             <Route path="/sign-in" element={<SignInForm setUser={setUser} />} />
             <Route path="/sign-up" element={<SignUpForm setUser={setUser} />} />
             <Route
-              path={`/home/`}
+              path={`/home`}
               element={<Home user={user} setCart={setCart} cart={cart} />}
             />
             <Route
@@ -58,10 +71,7 @@ const App = () => {
               path="/admin/new-product-form"
               element={<NewProductForm />}
             />
-            <Route
-              path="/products/:userId/:productId"
-              element={<ProductShow />}
-            />
+            <Route path="/products/:productId" element={<ProductShow />} />
             <Route path="/products/edit/:productId" element={<ProductEdit />} />
             <Route path={`/cart`} element={<Cart setCart={setCart} />} />
           </Routes>

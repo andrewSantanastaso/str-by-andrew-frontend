@@ -5,14 +5,13 @@ import CartList from "../CartList/CartList";
 import { useParams } from "react-router-dom";
 
 const Cart = (props) => {
-  const { userId } = useParams();
   const [userCart, setUserCart] = useState([]);
   const user = authService.getUser();
 
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
-        const cartData = await cartService.loadCart(user._id._id);
+        const cartData = await cartService.loadCart(user._id);
 
         setUserCart(cartData);
         props.setCart(cartData);
@@ -28,7 +27,7 @@ const Cart = (props) => {
     <>
       <CartList
         cart={userCart.products}
-        userId={userId}
+        userId={user._id}
         setUserCart={setUserCart}
       />
     </>

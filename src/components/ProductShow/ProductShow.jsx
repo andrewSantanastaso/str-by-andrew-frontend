@@ -15,11 +15,11 @@ import {
 import * as productService from "../../services/productService";
 import * as authService from "../../services/authService";
 import * as cartService from "../../services/cartService";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const ProductShow = (props) => {
   const { productId } = useParams();
-
+  const navigate = useNavigate();
   const [product, setProduct] = useState({});
   let user = authService.getUser();
   useEffect(() => {
@@ -35,10 +35,13 @@ const ProductShow = (props) => {
   }, [productId]);
   const handleAddToCart = async () => {
     let user = authService.getUser();
-
-    const product = await cartService.addToCart(user._id._id, productId);
+    if (!user) {
+      navigate("/");
+      return;
+    }
+    const product = await cartService.addToCart(user._id, productId);
     props.setCart([...props.cart, product]);
-    await cartService.loadCart(user._id._id);
+    await cartService.loadCart(user._id);
   };
 
   return (
@@ -51,7 +54,7 @@ const ProductShow = (props) => {
             style={{ width: "50rem", height: "50rem" }}
           />
 
-          {user._id.isAdmin ? (
+          {user?.isAdmin ? (
             <Link to={`/products/edit/${product._id}`}>
               <p>Edit</p>
             </Link>
@@ -71,7 +74,7 @@ const ProductShow = (props) => {
               <Button style={{ width: "20rem" }} onClick={handleAddToCart}>
                 Add To Cart
               </Button>
-              <Link to={`/home/${user._id._id}`}>
+              <Link to={`/home`}>
                 <Button variant="danger" style={{ width: "20rem" }}>
                   Cancel
                 </Button>

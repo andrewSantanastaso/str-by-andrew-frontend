@@ -30,7 +30,7 @@ const SignInForm = (props) => {
         navigate("/admin");
       } else {
         console.log(currentUser);
-        navigate(`/home/${currentUser._id._id}`);
+        navigate(`/home`);
       }
     }
   };

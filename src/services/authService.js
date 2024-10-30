@@ -54,8 +54,9 @@ const signin = async (user) => {
 const getUser = () => {
     const token = localStorage.getItem('token');
     if (!token) return null;
-    const user = JSON.parse(atob(token.split('.')[1]));
 
+    const user = JSON.parse(atob(token.split('.')[1]));
+    console.log(user)
     return user;
 }
 
@@ -64,5 +65,11 @@ const signout = () => {
 
 }
 
+const getToken = () => {
+    const token = localStorage.getItem('token');
 
-export { signup, signin, getUser, signout };
+    return token;
+}
+
+
+export { signup, signin, getUser, signout, getToken };

@@ -19,7 +19,7 @@ const NavHead = (props) => {
   const redirectHome = async () => {
     {
       setCategory("");
-      navigate(`/home/`);
+      navigate(`/home`);
     }
   };
 

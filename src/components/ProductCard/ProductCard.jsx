@@ -10,19 +10,25 @@ import {
 } from "react-bootstrap";
 import * as cartService from "../../services/cartService";
 import * as authService from "../../services/authService";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const ProductCard = (props) => {
-  let user = authService.getUser();
+  const navigate = useNavigate();
   let outOfStock = false;
   const handleAddToCart = async (item) => {
     let user = authService.getUser();
+    if (!user) {
+      navigate("/");
+      return;
+    }
+    const product = await cartService.addToCart(user._id, item._id);
+    const newCart = {
+      ...props.cart,
+      products: [...props.cart.products, product],
+    };
+    props.setCart(newCart);
 
-    const product = await cartService.addToCart(user._id._id, item._id);
-
-    props.setCart([...props.cart.products, product]);
-
-    props.refreshCart();
+    // props.refreshCart();
   };
   if (props.product.stock <= 5) {
     outOfStock === true;
@@ -35,7 +41,8 @@ const ProductCard = (props) => {
         id={props.product._id}
         style={{ width: "25rem", height: "25rem" }}
       >
-        <Link to={`/products/${user._id._id}}/${props.product._id}`}>
+        {/* <Link to={`/products/${user._id}}/${props.product._id}`}> */}
+        <Link to={`/products/${props.product._id}`}>
           <CardImg
             variant="top"
             src={`${props.product.image}`}

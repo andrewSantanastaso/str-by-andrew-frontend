@@ -1,4 +1,4 @@
-
+import { getToken } from "/src/services/authService";
 const BACKEND_URL = import.meta.env.VITE_EXPRESS_BACKEND_URL
 
 const loadProducts = async () => {
@@ -26,7 +26,11 @@ const addProduct = async (formData) => {
     try {
         const res = await fetch(`${BACKEND_URL}/new-product`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${getToken()}`
+
+            },
             body: JSON.stringify(formData)
 
         })
@@ -59,7 +63,10 @@ const editProduct = async (productId, product) => {
     try {
         const res = await fetch(`${BACKEND_URL}/edit/${productId}`, {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${getToken()}`
+            },
             body: JSON.stringify(product)
         })
         const json = await res.json()

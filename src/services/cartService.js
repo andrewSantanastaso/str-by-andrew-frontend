@@ -1,10 +1,13 @@
 const BACKEND_URL = import.meta.env.VITE_EXPRESS_BACKEND_URL
-
+import { getToken } from "/src/services/authService";
 const addToCart = async (userId, productId) => {
     try {
         const res = await fetch(`${BACKEND_URL}/cart/${userId}/${productId}`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${getToken()}`
+            },
 
 
         })
@@ -21,7 +24,10 @@ const loadCart = async (userId) => {
     try {
         const res = await fetch(`${BACKEND_URL}/cart/${userId}`, {
             method: "GET",
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${getToken()}`
+            },
 
 
         })
@@ -37,7 +43,10 @@ const removeFromCart = async (userId, productId) => {
     try {
         const res = await fetch(`${BACKEND_URL}/cart/${userId}/${productId}/delete`, {
             method: "DELETE",
-            headers: { 'Content-Type': 'application/json' }
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${getToken()}`
+            }
 
         })
 

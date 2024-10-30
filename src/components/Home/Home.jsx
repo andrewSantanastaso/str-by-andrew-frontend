@@ -8,8 +8,9 @@ import ProductCard from "../ProductCard/ProductCard";
 import { useParams } from "react-router-dom";
 
 const Home = (props) => {
-  const user = props.user._id || props.user.user;
-  const [cart, setCart] = useState([]);
+  const user = authService.getUser();
+
+  // const [cart, setCart] = useState([]);
   const { category } = useParams();
 
   const [store, setStore] = useState([]);
@@ -28,7 +29,7 @@ const Home = (props) => {
 
   return (
     <>
-      <h1 className="m-2 ">Welcome {user.name}</h1>
+      <h1 className="m-2 ">Welcome {user?.name || "Guest"}</h1>
       <Row>
         {store.allProducts?.map((product) =>
           product.category === category || !category ? (
@@ -43,9 +44,9 @@ const Home = (props) => {
               <ProductCard
                 product={product}
                 setProduct={props.setProduct}
-                userId={user._id._id}
-                setCart={setCart}
-                cart={cart}
+                // userId={props.user._id}
+                setCart={props.setCart}
+                cart={props.cart}
               />
             </Col>
           ) : null
